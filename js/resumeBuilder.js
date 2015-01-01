@@ -1,5 +1,3 @@
-var skills = ["python", "golf", "traveling"];
-
 var bio = {
 	"name" : "Fredrik Ohlsson",
 	"role" : "Web Developa",
@@ -28,27 +26,32 @@ var project = {
 	"description" : "Aggregate golf tee-times on a map with reviews."
 }
 
+var education = {
+	"schools" : [
+		{
+			"name" : "Lunds University",
+			"attended" : "2002 - 2003",
+			"city" : "Lund"
+		},
+		{
+			"name" : "Stockholm University",
+			"attended" : "2001 - 2002, 2003 - 2005",
+			"city" : "Stockholm"
+		}		
+	]
+}
 
-
-// var education = {
-// 	"schools" : [
-// 		{
-// 			"name" : "Lunds University",
-// 			"attended" : "2002 - 2003",
-// 			"city" : "Lund"
-// 		},
-// 		{
-// 			"name" : "Stockholm University",
-// 			"attended" : "2001 - 2002, 2003 - 2005",
-// 			"city" : "Stockholm"
-// 		}		
-// 	]
-// }
-
-$("#main").append(bio.name);
+if (bio.name != null) {
+	// $("#main").append(bio.name);
+	$("#header").append(bio.name);
+	} else {
+		$("#main").append("Name missing");
+	};
+$("#main").append(bio.skills);
 $("#main").append(bio.role);
 $("#main").append(work["position"]);
-// $("#main").append(education.school);
+$("#main").append(education.schools[1].name);
+console.log(bio.skills.length);
 
 
 
