@@ -25,3 +25,8 @@
 // var myArray = ["kalle", "hakan", "pollo"];
 
 // console.log(myArray.length);
+
+// $("#main").append(bio.role);
+// $("#main").append(work["position"]);
+// $("#main").append(education.schools[1].name);
+
