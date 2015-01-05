@@ -47,7 +47,7 @@ var projects = {
 			"projectURL" : "golfmap.co",
 			"description" : "Aggregate golf tee-times on a map with reviews.",
 			"images": [
-				"./images/fry.jpg"
+				"http://placehold.it/140x100", "http://placehold.it/140x100"
 			]
 		},
 		{
@@ -56,7 +56,7 @@ var projects = {
 			"projectURL" : "golfpond.com",
 			"description" : "Reviews of golf courses and a blog..",
 			"images": [
-				"images/fry.jpg"
+				"http://placehold.it/140x100"
 			]
 		}
 
@@ -119,8 +119,15 @@ projects.display = function() {
 		var title = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
 		var dates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
 		var desc = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
-		var image = HTMLprojectImage.replace("%data%", projects.projects[project].image);
-		$(".project-entry:last").append(title, dates, desc, image);
+		
+		$(".project-entry:last").append(title, dates, desc);
+
+		if (projects.projects[project].images.length > 0) {
+			for (image in projects.projects[project].images) {
+				var image = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+				$(".project-entry:last").append(image);
+			}
+		}
 	}
 }
 
