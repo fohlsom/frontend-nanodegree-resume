@@ -7,11 +7,11 @@ var bio = {
 		"github" : "fohlsom",
 		"location" : "San Francisco, CA" 
 	},
-	"welcomMessage" : "lorem ipsum dolor sit amet etc etc etc...",
+	"welcomeMessage" : "lorem ipsum dolor sit amet etc etc etc...",
 	"skills": [
 		"python", "golf", "traveling"
 	],
-	"bioPic" : "http://www.gravatar.com/avatar/8cb7a6c31eca402b7db2c33f7d763782.png",
+	"biopic" : "http://www.gravatar.com/avatar/8cb7a6c31eca402b7db2c33f7d763782.png",
 }
 
 var work = {
@@ -40,8 +40,15 @@ var work = {
 		{
 			"employer": "Basware Oyj",
 			"title": "Service Manager",
+			"location": "Espoo, Finland",
+			"dates": "2008 April - 2009 October",
+			"description": "Service management."
+		},
+		{
+			"employer": "Nissan Nordic Europe Oyj",
+			"title": "Product Specialist",
 			"location": "Helsinki, Finland",
-			"dates": "2008 March - 2009 October",
+			"dates": "2006 August - 2008 March",
 			"description": "Service management."
 		}
 	]
@@ -123,11 +130,15 @@ work.display = function() {
 bio.display = function() {
 	var myName = HTMLheaderName.replace("%data%", bio.name);
 	var myTitle = HTMLheaderRole.replace("%data%", bio.role);
-	$("#header").append(myName, myTitle, internationalizeButton);
+	$("#header").prepend(myName, myTitle, internationalizeButton);
 	var myMobile = HTMLmobile.replace("%data%",bio.contacts["mobile"]);
 	var myGithub = HTMLgithub.replace("%data%",bio.contacts.github);
 	var myEmail = HTMLemail.replace("%data%",bio.contacts["email"]);
 	var myLocation = HTMLlocation.replace("%data%",bio.contacts.location);
+	var bioPic = HTMLbioPic.replace("%data%",bio.biopic);
+	var welcomeMsg = HTMLWelcomeMsg.replace("%data%", bio.welcomeMessage);
+	$("#topContacts").append(myMobile, myGithub, myEmail, myLocation);
+	$("#header").append(bioPic).append(welcomeMsg);
 
 	$("#footerContacts").append(myMobile, myGithub, myEmail, myLocation);
 
@@ -142,6 +153,7 @@ bio.display = function() {
 		$("#header").append(mySkills);
 	}
 }
+
 
 //Internationalize button
 function inName(name) {
