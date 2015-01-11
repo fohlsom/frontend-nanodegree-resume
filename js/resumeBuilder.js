@@ -2,9 +2,10 @@ var bio = {
 	"name" : "Fredrik Ohlsson",
 	"role" : "Web Developer",
 	"contacts" : {
-		"email" : "ohlsson.fredrik@gmail.com",
 		"mobile" : "+1 415-425-6150",
+		"email" : "ohlsson.fredrik@gmail.com",
 		"github" : "fohlsom",
+		"twitter" : "fohlsom",
 		"location" : "San Francisco, CA" 
 	},
 	"welcomeMessage" : "lorem ipsum dolor sit amet etc etc etc...",
@@ -12,6 +13,32 @@ var bio = {
 		"python", "golf", "traveling"
 	],
 	"biopic" : "http://www.gravatar.com/avatar/8cb7a6c31eca402b7db2c33f7d763782.png",
+	"display" : function() {
+		var myName = HTMLheaderName.replace("%data%", bio.name);
+		var myTitle = HTMLheaderRole.replace("%data%", bio.role);
+		$("#header").prepend(myName, myTitle, internationalizeButton);
+
+		var myMobile = HTMLmobile.replace("%data%",bio.contacts["mobile"]);
+		var myGithub = HTMLgithub.replace("%data%",bio.contacts.github);
+		var myEmail = HTMLemail.replace("%data%",bio.contacts["email"]);
+		var myLocation = HTMLlocation.replace("%data%",bio.contacts.location);
+		var bioPic = HTMLbioPic.replace("%data%",bio.biopic);
+		var welcomeMsg = HTMLWelcomeMsg.replace("%data%", bio.welcomeMessage);
+		$("#topContacts").append(myMobile, myGithub, myEmail, myLocation);
+		$("#header").append(bioPic).append(welcomeMsg);
+		$("#footerContacts").append(myMobile, myGithub, myEmail, myLocation);
+
+			// Header - Skills section
+			if (bio.skills.length > 0) {
+				$("#header").append(HTMLskillsStart);
+				var mySkills = HTMLskills.replace("%data%", bio.skills[0]);
+				$("#header").append(mySkills);
+				var mySkills = HTMLskills.replace("%data%", bio.skills[1]);
+				$("#header").append(mySkills);
+				var mySkills = HTMLskills.replace("%data%", bio.skills[2]);
+				$("#header").append(mySkills);
+			}
+		}
 }
 
 var work = {
@@ -51,7 +78,19 @@ var work = {
 			"dates": "2006 August - 2008 March",
 			"description": "Service management."
 		}
-	]
+	],
+	"display" : function() {
+		for (job in work.jobs) {
+			$("#workExperience").append(HTMLworkStart);
+
+			var employer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+			var title = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+			var employerTitle = employer + " " + title;
+			var dates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+			var desc = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+			$(".work-entry:last").append(employerTitle, dates, desc);
+		}
+	}
 }
 
 var projects = {
@@ -74,86 +113,92 @@ var projects = {
 				"http://placehold.it/140x100"
 			]
 		}
+	],
+	"display" : function() {
+		for (project in projects.projects) {
+			$("#projects").append(HTMLprojectStart);
 
-	]
+			var title = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+			var dates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+			var desc = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+			
+			$(".project-entry:last").append(title, dates, desc);
+
+			if (projects.projects[project].images.length > 0) {
+				for (image in projects.projects[project].images) {
+					var image = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+					$(".project-entry:last").append(image);
+				}
+			}
+		}
+	}
 }
 
 var education = {
 	"schools" : [
 		{
 			"name" : "Lunds University",
-			"attended" : "2002 - 2003",
-			"city" : "Lund",
-			"location" : "Lund, Sweden"
+			"location" : "Lund, Sweden",
+			"degree" : "Bachelors Degree",
+			"majors" : "Business Law, Statistics and Informatics",
+			"dates" : 2003,
+			"url" : "www.lu.se"
 		},
 		{
 			"name" : "Stockholm University",
-			"attended" : "2001 - 2002, 2003 - 2005",
-			"city" : "Stockholm",
-			"location" : "Stockholm, Sweden"
+			"location" : "Stockholm, Sweden",
+			"degree" : "Masters Degree",
+			"majors" : "Business and Economics",
+			"dates" : 2005,
+			"url" : "www.su.se"
 		}		
-	]
-}
+	],
+	"onlineCourses" : [
+		{
+			"title" : "Front-End Web Developer Nanodegree",
+			"school" : "Udacity",
+			"dates" : 2015,
+			"url" : "www.udacity.com"
+		},
+		{
+			"title" : "JavaScript Basics",
+			"school" : "Udacity",
+			"dates" : 2015,
+			"url" : "www.udacity.com"
+		},
+		{
+			"title" : "HTML & CSS",
+			"school" : "Udacity",
+			"dates" : 2015,
+			"url" : "www.udacity.com"
+		}
+	],
+	"display" : function() {
+		for (school in education.schools) {
+			$("#education").append(HTMLschoolStart);
 
-projects.display = function() {
-	for (project in projects.projects) {
-		$("#projects").append(HTMLprojectStart);
+			var name = HTMLschoolName.replace("%data%", education.schools[school].name);
+			var degree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
+			var dates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
+			var location = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+			var majors = HTMLschoolMajor.replace("%data%", education.schools[school].majors);
+			
+			$(".education-entry:last").append(name + degree, dates, location, majors);
+		};
 
-		var title = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
-		var dates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
-		var desc = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
-		
-		$(".project-entry:last").append(title, dates, desc);
-
-		if (projects.projects[project].images.length > 0) {
-			for (image in projects.projects[project].images) {
-				var image = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
-				$(".project-entry:last").append(image);
+		if (education.onlineCourses.length > 0) {
+			$("#education").append(HTMLonlineClasses);
+			for (oc in education.onlineCourses) {
+				$("#education").append(HTMLschoolStart);
+				var ocTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[oc].title);
+				var ocSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[oc].school);
+				var ocDates = HTMLonlineDates.replace("%data%", education.onlineCourses[oc].dates);
+				var ocURL = HTMLonlineURL.replace("%data%", education.onlineCourses[oc].url);
+				$(".education-entry:last").append(ocTitle + ocSchool, ocDates + ocURL);
 			}
 		}
 	}
 }
-
-work.display = function() {
-	for (job in work.jobs) {
-		$("#workExperience").append(HTMLworkStart);
-
-		var employer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-		var title = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-		var employerTitle = employer + " " + title;
-		var dates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
-		var desc = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-		$(".work-entry:last").append(employerTitle, dates, desc);
-	}	
-}
-
-bio.display = function() {
-	var myName = HTMLheaderName.replace("%data%", bio.name);
-	var myTitle = HTMLheaderRole.replace("%data%", bio.role);
-	$("#header").prepend(myName, myTitle, internationalizeButton);
-	var myMobile = HTMLmobile.replace("%data%",bio.contacts["mobile"]);
-	var myGithub = HTMLgithub.replace("%data%",bio.contacts.github);
-	var myEmail = HTMLemail.replace("%data%",bio.contacts["email"]);
-	var myLocation = HTMLlocation.replace("%data%",bio.contacts.location);
-	var bioPic = HTMLbioPic.replace("%data%",bio.biopic);
-	var welcomeMsg = HTMLWelcomeMsg.replace("%data%", bio.welcomeMessage);
-	$("#topContacts").append(myMobile, myGithub, myEmail, myLocation);
-	$("#header").append(bioPic).append(welcomeMsg);
-
-	$("#footerContacts").append(myMobile, myGithub, myEmail, myLocation);
-
-	// Header - Skills section
-	if (bio.skills.length > 0) {
-		$("#header").append(HTMLskillsStart);
-		var mySkills = HTMLskills.replace("%data%", bio.skills[0]);
-		$("#header").append(mySkills);
-		var mySkills = HTMLskills.replace("%data%", bio.skills[1]);
-		$("#header").append(mySkills);
-		var mySkills = HTMLskills.replace("%data%", bio.skills[2]);
-		$("#header").append(mySkills);
-	}
-}
-
 
 //Internationalize button
 function inName(name) {
@@ -167,6 +212,7 @@ function inName(name) {
 bio.display();
 work.display();
 projects.display();
+education.display();
 
 //Google Map
 $("#mapDiv").append(googleMap);
