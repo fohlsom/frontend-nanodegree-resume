@@ -1,22 +1,28 @@
 // pie chart data
 var dataSE = [
     {
-        value: 100,
-        color:"#004890",
-        highlight: "#F0C000",
+        value: 49,
+        color:"#337ab7",
+        highlight: "#3b87c8",
         label: "Swedish"
     },
     {
-        value: 0,
-        color: "#ccc",
-        highlight: "#ccc",
-        label: "None"
+        value: 48,
+        color: "#F7464A",
+        highlight: "#FF5A5E",
+        label: "English"
+    },
+    {
+        value: 3,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Italian"
     }
 ]
 // pie chart options
 var pieOptions = {
 	//Boolean - Whether we should show a stroke on each segment
-    segmentShowStroke : true,
+    segmentShowStroke : false,
 
     //String - The colour of each segment stroke
     segmentStrokeColor : "#F0C000",
