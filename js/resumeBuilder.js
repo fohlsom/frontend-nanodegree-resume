@@ -140,7 +140,9 @@ var education = {
 			"name" : "Lunds University",
 			"location" : "Lund, Sweden",
 			"degree" : "Bachelors Degree",
-			"majors" : "Business Law, Statistics and Informatics",
+			"majors" : [
+				"Business Law", "Statistics", "Informatics",
+				],
 			"dates" : 2003,
 			"url" : "www.lu.se"
 		},
@@ -148,7 +150,9 @@ var education = {
 			"name" : "Stockholm University",
 			"location" : "Stockholm, Sweden",
 			"degree" : "Masters Degree",
-			"majors" : "Business and Economics",
+			"majors" : [
+				"Business","Economics","Finance"
+				],
 			"dates" : 2005,
 			"url" : "www.su.se"
 		}		
@@ -181,9 +185,17 @@ var education = {
 			var degree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
 			var dates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
 			var location = HTMLschoolLocation.replace("%data%", education.schools[school].location);
-			var majors = HTMLschoolMajor.replace("%data%", education.schools[school].majors);
+			//var majors = HTMLschoolMajor.replace("%data%", education.schools[school].majors);
+			var majors = "";
 			
-			$(".education-entry:last").append(name + degree, dates, location, majors);
+			if (education.schools[school].majors.length > 0){
+				for (var major in education.schools[school].majors) {
+					majors += education.schools[school].majors[major] + ", ";
+				};
+			};
+			var major = HTMLschoolMajor.replace("%data%", majors.slice(0,-2));
+			
+			$(".education-entry:last").append(name + degree, dates, location, major);
 		};
 
 		if (education.onlineCourses.length > 0) {
@@ -194,7 +206,7 @@ var education = {
 				var ocSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[oc].school);
 				var ocDates = HTMLonlineDates.replace("%data%", education.onlineCourses[oc].dates);
 				var ocURL = HTMLonlineURL.replace("%data%", education.onlineCourses[oc].url);
-				$(".education-entry:last").append(ocTitle + ocSchool, ocDates + ocURL);
+				$(".education-entry:last").append(ocTitle + ocSchool, ocDates, ocURL);
 			}
 		}
 	}
