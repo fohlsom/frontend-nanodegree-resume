@@ -2,15 +2,15 @@ var bio = {
 	"name" : "Fredrik Ohlsson",
 	"role" : "Web Developer",
 	"contacts" : {
-		"mobile" : "+1 415-425-6150",
-		"email" : "ohlsson.fredrik@gmail.com",
+		"mobile" : "+1 415-XXX-XXXX",
+		"email" : "email@gmail.com",
 		"github" : "fohlsom",
 		"twitter" : "fohlsom",
 		"location" : "San Francisco, CA" 
 	},
-	"welcomeMessage" : "lorem ipsum dolor sit amet etc etc etc...",
+	"welcomeMessage" : "Welcome message, lorem ipsum dolor sit amet etc etc etc...",
 	"skills": [
-		"python", "golf", "traveling"
+		"Remembering sports statistics",  "Web development", "Teaching golf"
 	],
 	"biopic" : "http://www.gravatar.com/avatar/8cb7a6c31eca402b7db2c33f7d763782.png",
 	"display" : function() {
@@ -39,6 +39,84 @@ var bio = {
 				$("#header").append(mySkills);
 			}
 		}
+}
+
+var education = {
+	"schools" : [
+		{
+			"name" : "Lunds University",
+			"location" : "Lund, Sweden",
+			"degree" : "Bachelors Degree",
+			"majors" : [
+				"Business Law", "Statistics", "Informatics",
+				],
+			"dates" : 2003,
+			"url" : "www.lu.se"
+		},
+		{
+			"name" : "Stockholm University",
+			"location" : "Stockholm, Sweden",
+			"degree" : "Masters Degree",
+			"majors" : [
+				"Business","Economics","Finance"
+				],
+			"dates" : 2005,
+			"url" : "www.su.se"
+		}		
+	],
+	"onlineCourses" : [
+		{
+			"title" : "Front-End Web Developer Nanodegree",
+			"school" : "Udacity",
+			"date" : 2015,
+			"url" : "www.udacity.com"
+		},
+		{
+			"title" : "JavaScript Basics",
+			"school" : "Udacity",
+			"date" : 2015,
+			"url" : "www.udacity.com"
+		},
+		{
+			"title" : "HTML & CSS",
+			"school" : "Udacity",
+			"date" : 2015,
+			"url" : "www.udacity.com"
+		}
+	],
+	"display" : function() {
+		for (school in education.schools) {
+			$("#education").append(HTMLschoolStart);
+
+			var name = HTMLschoolName.replace("%data%", education.schools[school].name);
+			var degree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
+			var dates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
+			var location = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+			//var majors = HTMLschoolMajor.replace("%data%", education.schools[school].majors);
+			var majors = "";
+			
+			if (education.schools[school].majors.length > 0){
+				for (var major in education.schools[school].majors) {
+					majors += education.schools[school].majors[major] + ", ";
+				};
+			};
+			var major = HTMLschoolMajor.replace("%data%", majors.slice(0,-2));
+			
+			$(".education-entry:last").append(name + degree, dates, location, major);
+		};
+
+		if (education.onlineCourses.length > 0) {
+			$("#education").append(HTMLonlineClasses);
+			for (oc in education.onlineCourses) {
+				$("#education").append(HTMLschoolStart);
+				var ocTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[oc].title);
+				var ocSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[oc].school);
+				var ocDates = HTMLonlineDates.replace("%data%", education.onlineCourses[oc].date);
+				var ocURL = HTMLonlineURL.replace("%data%", education.onlineCourses[oc].url);
+				$(".education-entry:last").append(ocTitle + ocSchool, ocDates, ocURL);
+			}
+		}
+	}
 }
 
 var work = {
@@ -99,7 +177,7 @@ var projects = {
 			"title" : "Golfmap.co",
 			"dates" : "2014 June",
 			"projectURL" : "golfmap.co",
-			"description" : "Aggregate golf tee-times on a map with reviews.",
+			"description" : "Golf map.",
 			"images": [
 				"http://placehold.it/140x100", "http://placehold.it/140x100"
 			]
@@ -108,7 +186,7 @@ var projects = {
 			"title" : "Golfpond.com",
 			"dates" : "2013 January",
 			"projectURL" : "golfpond.com",
-			"description" : "Reviews of golf courses and a blog..",
+			"description" : "Golf blog..",
 			"images": [
 				"http://placehold.it/140x100"
 			]
@@ -134,83 +212,7 @@ var projects = {
 	}
 }
 
-var education = {
-	"schools" : [
-		{
-			"name" : "Lunds University",
-			"location" : "Lund, Sweden",
-			"degree" : "Bachelors Degree",
-			"majors" : [
-				"Business Law", "Statistics", "Informatics",
-				],
-			"dates" : 2003,
-			"url" : "www.lu.se"
-		},
-		{
-			"name" : "Stockholm University",
-			"location" : "Stockholm, Sweden",
-			"degree" : "Masters Degree",
-			"majors" : [
-				"Business","Economics","Finance"
-				],
-			"dates" : 2005,
-			"url" : "www.su.se"
-		}		
-	],
-	"onlineCourses" : [
-		{
-			"title" : "Front-End Web Developer Nanodegree",
-			"school" : "Udacity",
-			"dates" : 2015,
-			"url" : "www.udacity.com"
-		},
-		{
-			"title" : "JavaScript Basics",
-			"school" : "Udacity",
-			"dates" : 2015,
-			"url" : "www.udacity.com"
-		},
-		{
-			"title" : "HTML & CSS",
-			"school" : "Udacity",
-			"dates" : 2015,
-			"url" : "www.udacity.com"
-		}
-	],
-	"display" : function() {
-		for (school in education.schools) {
-			$("#education").append(HTMLschoolStart);
 
-			var name = HTMLschoolName.replace("%data%", education.schools[school].name);
-			var degree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
-			var dates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
-			var location = HTMLschoolLocation.replace("%data%", education.schools[school].location);
-			//var majors = HTMLschoolMajor.replace("%data%", education.schools[school].majors);
-			var majors = "";
-			
-			if (education.schools[school].majors.length > 0){
-				for (var major in education.schools[school].majors) {
-					majors += education.schools[school].majors[major] + ", ";
-				};
-			};
-			var major = HTMLschoolMajor.replace("%data%", majors.slice(0,-2));
-			
-			$(".education-entry:last").append(name + degree, dates, location, major);
-		};
-
-		if (education.onlineCourses.length > 0) {
-			$("#education").append(HTMLonlineClasses);
-			for (oc in education.onlineCourses) {
-				$("#education").append(HTMLschoolStart);
-				var ocTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[oc].title);
-				var ocSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[oc].school);
-				var ocDates = HTMLonlineDates.replace("%data%", education.onlineCourses[oc].dates);
-				var ocURL = HTMLonlineURL.replace("%data%", education.onlineCourses[oc].url);
-				$(".education-entry:last").append(ocTitle + ocSchool, ocDates, ocURL);
-			}
-		}
-	}
-}
 
 //Internationalize button
 function inName(name) {
